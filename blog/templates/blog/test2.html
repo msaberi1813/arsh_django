@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Arsh_scheduling</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/uikit-rtl.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href= />
+    <script src="{% static 'blog/js/uikit.min.js' %}" ></script>
+    <script src="{% static 'blog/js/uikit-icons.min.js' %}"  ></script>
+    <script src="{% static 'blog/js/jquery.min.js' %}" ></script>
+
+
+</head>
+
+<body onload="startTime()">
+    <header>
+        <div class="example1 uk-background-contain uk-background-muted uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-background-fixed k-background-image@xl width:100%" style=" z-index: 1; background-image: url({% static 'blog/image/clk.jpg' %});  position: relative;opacity:70%; width:100%;clear: both;">
+            <p class=" uk-float-left topright namemain" ><b>  سامانه ثبت ساعات شرکت عرش</b></p>
+
+             <img id="logo" height=5% width=5% style="position: absolute;  top: 8px; left: 16px;" src="{% static 'blog/image/arsh.png' %}" alt="logo" />
+
+
+        </div>
+    </header>
+
+    <nav class="flex clearfix " id="myTopnav">
+        <div class="topnav" >
+          <a  href="#home" class="active" >صفحه اصلی</a>
+          <a href="#profile" >مرخصی</a>
+             <div class="dropdown " style="inline">
+                <button class="dropbtn">تنظیمات
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">پروفایل</a>
+                  <a href="#">ارتباط با مدیریت</a>
+                </div>
+
+             </div>
+                <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
+        </div>
+
+    </nav>
+
+
+<div  style="width:100%" >
+     <div style="width:100%">
+        <aside>
+
+            <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
+                <span class=" sp" id="title_message" style="float: right">
+                    <a href="" class="uk-icon-button " uk-icon=plus></a>
+                    بسته های کاری</span>
+              <a href="#about" class="uk-align-right">یک</a>
+              <a href="#services" class="uk-align-right">دو</a>
+              <a href="#clients" class="uk-align-right">سه</a>
+              <a href="#contact" class="uk-align-right">چهار</a>
+              <a href="#contact" class="uk-align-right">چهار</a>
+
+            </div>
+        </aside>
+     </div>
+
+    <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%;  ">
+
+        <table id="time" class="rtl uk-table uk-table uk-table-striped" >
+
+               <thead>
+                    <tr>
+                        <th class="uk-width-auto"><strong> عنوان کار</strong></th>
+                        <th class="uk-width-auto" ><strong> شروع</strong></th>
+                        <th class="uk-width-auto"><strong>  پایان</strong></th>
+                        <th class="uk-width-auto"><strong>  مدت زمان  </strong></th>
+                    </tr>
+               </thead>
+
+               <tbody>
+                    <tr>
+                           <th class="uk-width-auto">عنوان کار</th>
+                        <th class="uk-width-auto">شروع</th>
+                        <th class="uk-width-auto">پایان</th>
+                        <th class="uk-width-auto">پایان</th>
+                    </tr>
+                    <tr>
+                         <th class="uk-width-auto">عنوان کار</th>
+                        <th class="uk-width-auto">شروع</th>
+                        <th class="uk-width-auto">
+                            <button class="dropbtn">اتمام</button>
+                        </th>
+                        <th class="uk-width-auto">پایان</th>
+                    </tr>
+               </tbody>
+
+
+           </table>
+
+    <input type="text" class="uk-float-right inbox" name="lname" placeholder="کار خود را وارد کنید..." ><br><br>
+
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+*/__pycache__/
+blog/migrations/
+db.sqlite3
+.idea
+.git
