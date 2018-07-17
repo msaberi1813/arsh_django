@@ -1,183 +1,107 @@
-
-
 <!DOCTYPE html>
-
-<html lang="en-gb" dir="ltr">
 {% load static %}
-    <head>
-        <meta charset="utf-8">
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Arsh_scheduling</title>
 
-        <link rel="stylesheet" type="text/css" href="{% static 'blog/css/uikit.min.css' %}" />
-        <link rel="stylesheet" type="text/css" href= />
-        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.8/css/uikit.min.css" />-->
-        <script src="{% static 'blog/js/uikit.min.js' %}" ></script>
-        <script src="{% static 'blog/js/uikit-icons.min.js' %}"  ></script>
-        <script src="{% static 'blog/js/jquery.min.js' %}" ></script>
-
-
-        <script>
-            document.getElementById("demo").onclick = function() {myFunction()};
-
-function myFunction() {
-       name : <input type="text" name="fname" id="name"><br>
-                            salary: <input type="text" name="lname" id="salary"><br>
-                                    position : <input type="text" name="lname" id="position"><br><br>
-
-    var table = document.getElementById("myTable");
-    var row = table.insertRow(table.rows.length);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell2 = row.insertCell(2);
-    cell1.innerHTML = name;
-    cell2.innerHTML = salary;
-    cell2.innerHTML = position;
-}
-        </script>
-        <style>
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #111;
-}
-
-.active {
-    background-color: cyan;
-}
-</style>
-    </head>
-
-    <body>
-    <div>
-        <header>
-               <div class="uk-background-contain uk-background-muted uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-background-fixed k-background-image@xl width:100%" style="background-image: url({% static 'blog/image/comp.jpg' %});  position: static; width:100%;">
-                     <p class="uk-h4" style="color : white ; float:right"><b> سامانه ثبت ساعات شرکت عرش</b></p>
-               </div>
-        </header>
-    </div>
-
-        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom" style="display:block; clear: both; position:static">
-<div class="uk-float-right" style="position:static" >
-            <nav class="uk-navbar uk-margin-large-bottom uk-float-right">
-<ul class="uk-float-right" style="display:block; clear: both; position:static">
-    <li><a href="#contact">درباره ما</a></li>
-  <li><a href="#about">تماس با ما</a></li>
-    <li><a href="#news">اخبار</a></li>
-  <li><a href="#home" class="active">خانه</a></li>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/uikit-rtl.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href= />
+    <script src="{% static 'blog/js/uikit.min.js' %}" ></script>
+    <script src="{% static 'blog/js/uikit-icons.min.js' %}"  ></script>
+    <script src="{% static 'blog/js/jquery.min.js' %}" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 
-</ul>
-                <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+</head>
 
-            </nav>
-</div>
-<div class="uk-grid-match uk-child-width-expand@s uk-text-center" uk-grid>
-    <article>
+<body onload="startTime()">
+    <header>
+        <div class="example1 uk-background-contain uk-background-muted uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-background-fixed k-background-image@xl width:100%" style=" z-index: 1; background-image: url({% static 'blog/image/clk.jpg' %});  position: relative;opacity:70%; width:100%;clear: both;">
+            <p class=" uk-float-left topright namemain" ><b>  سامانه ثبت ساعات شرکت عرش</b></p>
+
+             <img id="logo" height=5% width=5% style="position: absolute;  top: 8px; left: 16px;" src="{% static 'blog/image/arsh.png' %}" alt="logo" />
 
 
-        <div class="uk-text-center" uk-grid>
-    <div class="uk-width-2-3@m">
-           <table id="time" class="uk-table uk-table uk-table-striped">
+        </div>
+    </header>
+
+    <nav class="flex clearfix " id="myTopnav">
+        <div class="topnav" >
+          <a  href="#home" class="active" >صفحه اصلی</a>
+          <a href="#profile" >مرخصی</a>
+             <div class="dropdown " style="inline">
+                <button class="dropbtn">تنظیمات
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">پروفایل</a>
+                  <a href="#">ارتباط با مدیریت</a>
+                </div>
+
+             </div>
+                <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
+        </div>
+
+    </nav>
+
+
+<div  style="width:100%" >
+     <form style="width:100%" method="post" action="jobs" id="one">
+         {% csrf_token %}
+        <aside>
+
+            <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
+                <span class=" sp" id="title_message" style="float: right">
+                    <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
+                    بسته های کاری</span>
+                {% for box in workboxes %}
+                      <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.created_date }} </a>
+                {% endfor %}
+
+            </div>
+        </aside>
+     </form>
+
+    <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%;  ">
+
+        <table id="time" class="rtl uk-table uk-table uk-table-striped" >
 
                <thead>
                     <tr>
-                        <th>name</th>
-                        <th>salary</th>
-                        <th>position</th>
+                        <th class="uk-width-auto"><strong> عنوان کار</strong></th>
+                        <th class="uk-width-auto" ><strong> شروع</strong></th>
+                        <th class="uk-width-auto"><strong>  پایان</strong></th>
+                        <th class="uk-width-auto"><strong>  مدت زمان  </strong></th>
                     </tr>
                </thead>
 
                <tbody>
-                                        <tr>
-                                                <th>maryam</th>
-                                                 <th>50000</th>
-                                                <th>web develpoer</th>
-                                        </tr>
-                                     <tr>
-                                                <th>fateme</th>
-                                                 <th>50000</th>
-                                                <th>android developer</th>
-                                        </tr>
+                {% for work in works %}
+
+                    <tr>
+                        <th class="uk-width-auto">{{work.title }} </th>
+                        <th class="uk-width-auto">{{work.beginning_time}}</th>
+                        <th class="uk-width-auto">{{work.finish_time}}</th>
+                        <!--<th class="uk-width-auto">{{work.duration}}</th>-->
+                    </tr>
+               {% endfor %}
+
                </tbody>
+
+
            </table>
-                                          <button class="uk-button " id="demo4" onclick="myFunction()">submit</button></div>
+
+    <input type="text" class="uk-float-right inbox" name="lname" placeholder="کار خود را وارد کنید..." ><br><br>
+
+
     </div>
-            </article>
-    <div class="uk-width-1-3@m">
-           <aside class=uk-panel">
-                        <!--<div class="uk-panel-badge uk-badge"></div>-->
-                        <h3 class="uk-panel-title uk-float-right uk-icon-quote-right uk-icon-large" style="clear: both;">بسته های کاری</h3>
-                             <table id="workbox" class="uk-table uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>name</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                            <th>maryam</th>
-                                             <th>50000</th>
-                                            <th>web develpoer</th>
-                                    </tr>
-                                 <tr>
-                                            <th>fateme</th>
-                                             <th>50000</th>
-                                            <th>android developer</th>
-                                    </tr>
-                                </tbody>
-                              </table>
-                        <button class="uk-button " id="box_button" onclick="myFunction()">submit</button>
 
 
-
-                    </aside>
-    </div>
 </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    </body>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

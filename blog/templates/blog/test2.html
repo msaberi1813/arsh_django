@@ -11,6 +11,7 @@
     <script src="{% static 'blog/js/uikit.min.js' %}" ></script>
     <script src="{% static 'blog/js/uikit-icons.min.js' %}"  ></script>
     <script src="{% static 'blog/js/jquery.min.js' %}" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 
 </head>
@@ -47,22 +48,21 @@
 
 
 <div  style="width:100%" >
-     <div style="width:100%">
+     <form style="width:100%" method="post" action="add" id="one">
+         {% csrf_token %}
         <aside>
 
             <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
                 <span class=" sp" id="title_message" style="float: right">
-                    <a href="" class="uk-icon-button " uk-icon=plus></a>
+                    <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
                     بسته های کاری</span>
-              <a href="#about" class="uk-align-right">یک</a>
-              <a href="#services" class="uk-align-right">دو</a>
-              <a href="#clients" class="uk-align-right">سه</a>
-              <a href="#contact" class="uk-align-right">چهار</a>
-              <a href="#contact" class="uk-align-right">چهار</a>
+                {% for box in workboxes %}
+                      <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.created_date }} </a>
+                {% endfor %}
 
             </div>
         </aside>
-     </div>
+     </form>
 
     <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%;  ">
 
@@ -78,27 +78,36 @@
                </thead>
 
                <tbody>
+                {% for work in works %}
+
                     <tr>
-                           <th class="uk-width-auto">عنوان کار</th>
-                        <th class="uk-width-auto">شروع</th>
-                        <th class="uk-width-auto">پایان</th>
-                        <th class="uk-width-auto">پایان</th>
+                        <th class="uk-width-auto">{{work.title }} </th>
+                        <th class="uk-width-auto">{{work.beginning_time}}</th>
+
+
+                        {% if work.finish_time is None %}
+                            <th class="uk-width-auto">
+                                <th class="uk-width-auto">
+                        <button type="button">اتمام </button>
+                    </th>
+                            </th>
+                        {% endif %}
+
                     </tr>
-                    <tr>
-                         <th class="uk-width-auto">عنوان کار</th>
-                        <th class="uk-width-auto">شروع</th>
-                        <th class="uk-width-auto">
-                            <button class="dropbtn">اتمام</button>
-                        </th>
-                        <th class="uk-width-auto">پایان</th>
-                    </tr>
+               {% endfor %}
+
                </tbody>
 
 
            </table>
+<form method="post" action="addjob" id="two">
+      {% csrf_token %}
 
-    <input type="text" class="uk-float-right inbox" name="lname" placeholder="کار خود را وارد کنید..." ><br><br>
+    <input type="text" class="uk-float-right inbox" name="title" id="title" placeholder="کار خود را وارد کنید..." ><br><br>
+    <input type="hidden" id="pk" name="pk" value={{pkey}}>
 
+
+</form>
 
     </div>
 
