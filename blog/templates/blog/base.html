@@ -23,6 +23,7 @@
 
              <img id="logo" height=5% width=5% style="position: absolute;  top: 8px; left: 16px;" src="{% static 'blog/image/arsh.png' %}" alt="logo" />
 
+
         </div>
     </header>
 
@@ -35,7 +36,7 @@
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">پروفایل</a>
+                  <a href="{% url 'profile' %}">پروفایل</a>
                   <a href="">خروج</a>
                 </div>
 
@@ -44,41 +45,6 @@
         </div>
 
     </nav>
-
-
-<div  style="width:100%" >
-
-
-    <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%; position: relative ">
-
-<form method="post" action="simple_upload" id="three" enctype="multipart/form-data">
-      {% csrf_token %}
-<label>نام و نام خانوادگی</label><br>
-    <input type="text" class="uk-float-right inbox" name="name" id="name"  ><br><br>
-    <label>ایمیل</label><br>
-
-    <input type="text" class="uk-float-right inbox" name="email" id="email"  ><br><br>
-        <label>شماره</label><br>
-
-    <input type="text" class="uk-float-right inbox" name="phone" id="phone" ><br><br>
-        <label>رمز عبور</label> <br>
-
-    <input type="password" class="uk-float-right inbox" name="pass" id="pass"  ><br><br>
-<label>عکس خود را بارگذاری کنید</label><br>
-
-    <input type="file" name="myfile"><br><br>
-
-     <button type="submit" >ثبت نام</button>
-     {% if uploaded_file_url %}
-    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-      {% endif %}
-
-
-</form>
-    </div>
-
-
-</div>
 
 
 

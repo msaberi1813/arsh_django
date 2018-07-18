@@ -36,8 +36,8 @@
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">پروفایل</a>
-                  <a href="#">ارتباط با مدیریت</a>
+                  <a href="{% url 'profile' %}">پروفایل</a>
+                  <a href="{% url 'logout' %}">خروج</a>
                 </div>
 
              </div>
@@ -50,7 +50,7 @@
 <div  style="width:100%" >
      <form style="width:100%" method="post" action="add" id="one">
          {% csrf_token %}
-        <aside>
+         <aside>
 
             <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
                 <span class=" sp" id="title_message" style="float: right">
@@ -64,9 +64,19 @@
         </aside>
      </form>
 
-    <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%;  ">
+    <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%; position: relative ">
 
-        <table id="time" class="rtl uk-table uk-table uk-table-striped" >
+<div>
+        <img id="anynom" height=10% width=10% style="position: absolute; top:5px ; right:0px ; display: inline " src="{% static 'blog/image/anynom.jpg' %}" alt="anynom" />
+        {% if request.user.is_authenticated %}
+          <p style=" display: inline"> خوش آمدی! {{ request.user.name }} </p>
+
+          <a href="#">وارد شوید</a>
+        {% endif %}
+</div>
+<!--<hr>-->
+ {% if request.user.is_authenticated %}
+        <table id="time" style="top: 5%" class="rtl uk-table uk-table uk-table-striped" >
 
                <thead>
                     <tr>
@@ -82,18 +92,25 @@
 
                     <tr>
                         <th class="uk-width-auto">{{work.title }} </th>
-                        <th class="uk-width-auto">{{work.beginning_time}}</th>
+                        <th class="uk-width-auto"><time>{{work.beginnig_time}}</time></th>
 
 
                         {% if work.finish_time is None %}
-                            <th class="uk-width-auto">
+
                                 <th class="uk-width-auto">
-                        <button type="button">اتمام </button>
+                        <form action="finish_task/{{work.pk}}" method="post">
+                            {% csrf_token %}
+                            <input id="submit" type="submit" value="اتمام" />
+                        </form>
                     </th>
                             </th>
+                        {% else %}
+
+                        <th class="uk-width-auto">{{work.finish_time}}</th>
                         {% endif %}
 
                     </tr>
+
                {% endfor %}
 
                </tbody>
@@ -108,7 +125,7 @@
 
 
 </form>
-
+   {% endif %}
     </div>
 
 
