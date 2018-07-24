@@ -131,3 +131,12 @@ AUTH_USER_MODEL = 'blog.myUser'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+AUTH_USER_MODEL = 'blog.MyUser'
+
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.RemoteUserBackend',
+        'django.contrib.auth.backends.ModelBackend',
+)

@@ -1,5 +1,8 @@
+from khayyam import *
 
 # Create your models here.
+from datetime import time
+import time
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.base_user import BaseUserManager
@@ -7,38 +10,37 @@ from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 
 
-
 class WorkBox(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now())
+    title = JalaliDatetime.now().strftime('%C');
 
 
 
 class Work(models.Model):
 
     title = models.CharField(max_length=30 , null=False , default="کار");
-    beginnig_time = models.TimeField(default = timezone.now())
-    finish_time = models.TimeField(default = None , null=True);
+    beginnig_time = models.CharField(max_length=30 , default = str(time.strftime("%H:%M")))
+    finish_time = models.CharField(default = None , null=True , max_length=30);
     workbox = models.ForeignKey(WorkBox, on_delete=models.CASCADE)
     isFinished = models.BooleanField(default= False)
-    # shour =  - beginnig_time
-    # sh = datetime.date.today().strftime("%H")
-    # fh = finish_time.strftime("%Y")
-
-
+    d = models.CharField(default = None , null=True , max_length=30);
     def __str__(self):
         return self.title;
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email,avatar=None, password=None):
+    def create_user(self, email,avatar = "blog/image/anynom.jpg" ,  name = "ناشناس", phone= "", password=None ):
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError('وارد کردن ایمیل ضروری است!')
 
         user = self.model(
             email=MyUserManager.normalize_email(email),
+            name = name,
+            phone = phone,
             avatar = avatar,
+            password = password
         )
 
         user.set_password(password)
@@ -59,7 +61,7 @@ class MyUser(AbstractBaseUser):
     email = models.EmailField(max_length=254, unique=True, db_index=True)
     name = models.CharField(max_length=50 , default="ناشناس")
     phone = models.CharField(max_length=50 , default="0")
-    avatar= models.FileField(upload_to='documents/' , default=None)
+    avatar = models.ImageField(default=None)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

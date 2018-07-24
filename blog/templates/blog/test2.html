@@ -1,31 +1,8 @@
-<!DOCTYPE html>
+{% include "blog/base.html" %}
+
 {% load static %}
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>Arsh_scheduling</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/uikit-rtl.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/base.css' %}" />
-    <link rel="stylesheet" type="text/css" href= />
-    <script src="{% static 'blog/js/uikit.min.js' %}" ></script>
-    <script src="{% static 'blog/js/uikit-icons.min.js' %}"  ></script>
-    <script src="{% static 'blog/js/jquery.min.js' %}" ></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-
-</head>
-
-<body onload="startTime()">
-    <header>
-        <div class="example1 uk-background-contain uk-background-muted uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-background-fixed k-background-image@xl width:100%" style=" z-index: 1; background-image: url({% static 'blog/image/clk.jpg' %});  position: relative;opacity:70%; width:100%;clear: both;">
-            <p class=" uk-float-left topright namemain" ><b>  سامانه ثبت ساعات شرکت عرش</b></p>
-
-             <img id="logo" height=5% width=5% style="position: absolute;  top: 8px; left: 16px;" src="{% static 'blog/image/arsh.png' %}" alt="logo" />
-
-
-        </div>
-    </header>
+{% block content %}
 
     <nav class="flex clearfix " id="myTopnav">
         <div class="topnav" >
@@ -57,7 +34,7 @@
                     <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
                     بسته های کاری</span>
                 {% for box in workboxes %}
-                      <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.created_date }} </a>
+                      <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.title }} </a>
                 {% endfor %}
 
             </div>
@@ -67,11 +44,13 @@
     <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%; position: relative ">
 
 <div>
-        <img id="anynom" height=10% width=10% style="position: absolute; top:5px ; right:0px ; display: inline " src="{% static 'blog/image/anynom.jpg' %}" alt="anynom" />
-        {% if request.user.is_authenticated %}
+            {% if request.user.is_authenticated %}
+
+
+        <img id="anynom" height=10% width=10% style="position: absolute; top:5px ; right:0px ; display: inline " src="{{ request.user.avatar }}" alt=' ' />
           <p style=" display: inline"> خوش آمدی! {{ request.user.name }} </p>
 
-          <a href="#">وارد شوید</a>
+
         {% endif %}
 </div>
 <!--<hr>-->
@@ -108,6 +87,7 @@
 
                         <th class="uk-width-auto">{{work.finish_time}}</th>
                         {% endif %}
+                        <th class="uk-width-auto">{{work.d}}</th>
 
                     </tr>
 
@@ -131,7 +111,4 @@
 
 </div>
 
-
-
-</body>
-</html>
+{% endblock %}
