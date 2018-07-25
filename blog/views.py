@@ -1,14 +1,16 @@
 import time
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm
+from django.db import IntegrityError
 from django.utils import timezone
 from .models import WorkBox, Work, MyUser, MyUserManager
 from .forms import NameForm , UploadFileForm
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.core.files.storage import FileSystemStorage
-from .somewhere import handle_uploaded_file
 from .duration import duration2
 # Create your views here.
 
@@ -29,7 +31,7 @@ def showJobs(request, pk):
 def addingTask(request):
     # pass
     if request.method == 'POST':
-        newBox = WorkBox.objects.create(author = request.user)
+        newBox = WorkBox.objects.create(author=request.user)
         url = reverse('showJobs', kwargs={'pk': newBox.pk})
         return HttpResponseRedirect(url)
 
@@ -69,41 +71,62 @@ def finish_task(request , pk ,pk2):
     form_class = NameForm
     # if request is not post, initialize an empty form
     form = form_class(request.POST or None)
-    if request.method == 'post':
-        w = Work.objects.filter(pk = form.data['pk'])
+    if request.method == 'POST':
+        print("ggggggggggggggggggggggggggggggg")
+        w = Work.objects.filter(pk = pk).first()
         w.finish_time = str(time.strftime("%H:%M"))
         print(w.finish_time)
         w.d = duration2( w.beginnig_time , str(time.strftime("%H:%M")))
-        x=WorkBox.objects.get(pk=int(form.data['pk2']))
-        newjob = Work.objects.create(title=form.data['title'], workbox=WorkBox.objects.get(pk=int(form.data['pk'])))
-        workboxes = WorkBox.objects.filter(author=request.user).order_by('created_date')
-        myworkbox = WorkBox.objects.get(author=request.user, pk=int(form.data['pk']))
+        x=WorkBox.objects.get(pk=pk2)
+        newjo = Work.objects.create( workbox=WorkBox.objects.get(pk=int(form.data['pk'])))
+        workboxe = WorkBox.objects.filter(author=request.user).order_by('created_date')
 
-    return render(request, 'blog/test2.html',   {'workboxes': workboxes, 'newjob': newjob , 'pkey':form.data['pk'] })
+
+    return render(request, 'blog/test2.html',   {'workboxes': workboxe , 'newjob': newjo , 'pkey':form.data['pk'] })
 
 
 def profile(request):
     return render (request , 'blog/test.html' , {})
 
 
+
 def upload_file(request):
 
     form_class = NameForm
-    form = form_class(request.POST or None)
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfil = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfil.name, myfil)
-        uploaded_file_url = fs.url(filename)
-        user = MyUser.objects.create_user( name = form.data['name'],  email = form.data['email'],   phone  = form.data['phone'],  password = form.data['passw'] )
+    form = form_class(request.POST, request.FILES)
+    if request.method == 'POST' :
+        # myfil= None
+        if form.is_valid():
+            try:
+             user = MyUser.objects.create_user(name=form.data['name'], email=form.data['email'],  phone=form.data['phone'], password=form.data['password'])
+            except:
+                messages.error(request, 'وارد کردن ایمیل غیر تکراری ضروری است')
+            else:
 
-        try:
-            user.avatar = myfil
-        except:
-            user.avatar = 'static/blog/image/anynom.jpg'
+                if 'myfile' in request.FILES:
+                    myfil = request.FILES['myfile']
+                    fs = FileSystemStorage()
+                    filename = fs.save(myfil.name, myfil)
+                    uploaded_file_url = fs.url(filename)
+                    print("yeeeeeeeeeeeeeeeeeeeeeeeeeeeees")
+                    user.avatar = uploaded_file_url
+                    user.save()
+                else:
+                    uploaded_file_url = "static/blog/image/anynom.jpg"
 
-        return render(request, 'blog/test.html', {
-            'uploaded_file_url': uploaded_file_url
-        , 'user' : user})
-    else:
-        return render(request, 'blog/test.html' , {})
+                    messages.success(request, 'ثبت نام با موفقیت انجام شد')
+
+                return render(request, 'blog/test.html', {
+                    'uploaded_file_url': uploaded_file_url , 'user':user
+                })
+    return render(request, 'blog/test.html')
+
+
+
+
+        # try:
+        # except:
+        #     user.avatar = 'static/blog/image/anynom.jpg'
+        # messages.success(request, 'ثبت نام با موفقیت انجام شد')
+        #
+

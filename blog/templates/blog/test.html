@@ -8,16 +8,8 @@
 
     <nav class="flex clearfix " id="myTopnav">
         <div class="topnav" >
-          <a  href="#home" class="active" >صفحه اصلی</a>
-          <a href="#profile" >مرخصی</a>
-             <div class="dropdown " style="inline">
-                <button class="dropbtn">تنظیمات
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                  <a href="#">پروفایل</a>
-                  <a href="">خروج</a>
-                </div>
+          <a  href="login" style="color:white" >بازگشت به صفحه ورود</a>
+
 
              </div>
                 <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
@@ -31,34 +23,41 @@
 
     <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%; position: relative ">
 <h2 style="text-direction: rtl; float: right;">ثبت نام</h2><br>
+
 <form method="post" action="upload_file" id="three" enctype="multipart/form-data">
       {% csrf_token %}
+
+    {% if messages %}
+<ul class="messages" style="color: green" >
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <label>نام و نام خانوادگی</label><br>
-    <input type="text" class="uk-float-right inbox" name="name" id="name"  ><br><br>
+    <input type="text" class="uk-input uk-float-right inbox" name="name" id="name"  ><br><br>
     <label>ایمیل</label><br>
 
-    <input type="text" class="uk-float-right inbox" name="email" id="email"  ><br><br>
+    <input type="text" class="uk-input uk-float-right inbox" name="email" id="email"  ><br><br>
         <label>شماره</label><br>
 
-    <input type="text" class="uk-float-right inbox" name="phone" id="phone" ><br><br>
+    <input type="text" class="uk-input uk-float-right inbox" name="phone" id="phone" ><br><br>
         <label>رمز عبور</label> <br>
 
-    <input type="password" class="uk-float-right inbox" name="passw" id="passw"  ><br><br>
+    <input type="password" class="uk-input uk-float-right inbox" name="password" id="password"  ><br><br>
 <label>عکس خود را بارگذاری کنید</label><br>
 
     <input type="file" name="myfile" id="myfile"><br><br>
 
      <button type="submit" onclick="myFunction()">ثبت نام</button>
      {% if uploaded_file_url %}
-    <p> <a href="{{ uploaded_file_url }}" style="color: black; float: right; text-align:rtl;">فایل آپلود شده</a></p>
+    <p> <a href="{{ uploaded_file_url }}" style="color: black; float: right; text-align:rtl;"> فایل آپلود شده</a></p>
       {% endif %}
 
 
+
 </form>
-    </div>
-     <p><a href="{% url 'login' %}">بازگشت به صفحه ورود</a></p>
 
-
-</div>
 
 {% endblock %}

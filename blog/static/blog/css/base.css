@@ -22,7 +22,8 @@ body {
   font-size: 17px; }
 
 a:link {
-  color: white; }
+  color: white;
+  background-color: black}
 
 /* visited link */
 .topnav a:visited {
@@ -154,11 +155,13 @@ a:link {
 
 /* Add a grey background to dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #ddd;
-  color: black; }
+  background-color:black;
+  color:  #ddd; }
 
 .dropdown-content a:link {
-  color: white; }
+  background-color: black ;
+  color: white;
+  }
 
 /* Show the dropdown menu when the user moves the mouse over the dropdown button */
 .dropdown:hover .dropdown-content {

@@ -7,7 +7,7 @@
     <nav class="flex clearfix " id="myTopnav">
         <div class="topnav" >
           <a  href="#home" class="active" >صفحه اصلی</a>
-          <a href="#profile" >مرخصی</a>
+
              <div class="dropdown " style="inline">
                 <button class="dropbtn">تنظیمات
                   <i class="fa fa-caret-down"></i>
@@ -47,13 +47,13 @@
             {% if request.user.is_authenticated %}
 
 
-        <img id="anynom" height=10% width=10% style="position: absolute; top:5px ; right:0px ; display: inline " src="{{ request.user.avatar }}" alt=' ' />
+        <img  height=10% width=10% style=" border-radius: 50% ; position: absolute; top:5px ; right:0px ; display: inline " src="{{ request.user.avatar }}"  />
           <p style=" display: inline"> خوش آمدی! {{ request.user.name }} </p>
 
 
         {% endif %}
 </div>
-<!--<hr>-->
+
  {% if request.user.is_authenticated %}
         <table id="time" style="top: 5%" class="rtl uk-table uk-table uk-table-striped" >
 
@@ -77,7 +77,7 @@
                         {% if work.finish_time is None %}
 
                                 <th class="uk-width-auto">
-                        <form action="finish_task/{{work.pk}}" method="post">
+                        <form method="post" action="finish_task/{{work.pk}}" >
                             {% csrf_token %}
                             <input id="submit" type="submit" value="اتمام" />
                         </form>

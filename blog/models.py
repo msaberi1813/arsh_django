@@ -31,7 +31,7 @@ class Work(models.Model):
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email,avatar = "blog/image/anynom.jpg" ,  name = "ناشناس", phone= "", password=None ):
+    def create_user(self, email,avatar = "static/blog/image/anynom.jpg" ,  name = "ناشناس", phone= "", password=None ):
         if not email:
             raise ValueError('وارد کردن ایمیل ضروری است!')
 

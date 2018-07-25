@@ -1,15 +1,47 @@
 
+{% load static %}
 
-{% block title %}Login{% endblock %}
+<head>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}" />
 
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<style>
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+</style>
+
+
+
+</head>
 {% block content %}
-  <h2>Login</h2>
-  <form method="post" action="">
+<body background-image>
+
+
+<div  id="content">
+  <h2 style="  text-align: center;">  ورود به سامانه </h2>
+  <form method="post" class="uk-input" style="margin: auto auto; width:250px; align:center;">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button><br>
 
-        <a href="{% url 'profile'  %}" >ثبت نام کنید!</a>
+    <button type="submit" style="float :right; clear: both;">ورود</button>
+
+        <a href="{% url 'profile'  %}" style="  float:right;clear: both; ; text-direction: rtl;" >ثبت نام کنید!</a>
 
   </form>
+  </div>
+</body>
 {% endblock %}
