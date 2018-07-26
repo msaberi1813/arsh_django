@@ -4,20 +4,28 @@
 
 {% block content %}
 
-    <nav class="flex clearfix " id="myTopnav">
+    <nav class="flex clearfix " id="myTopnav" style="z-index: 2;">
         <div class="topnav" >
-          <a  href="#home" class="active" >صفحه اصلی</a>
+                   <div style="float:left;">
+            {% if request.user.is_authenticated %}
 
-             <div class="dropdown " style="inline">
-                <button class="dropbtn">تنظیمات
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                  <a href="{% url 'profile' %}">پروفایل</a>
-                  <a href="{% url 'logout' %}">خروج</a>
-                </div>
+{% if request.user.avatar %}
+        <img  height=15% width=15% style=" float:left;z-index: 1; border-radius: 50% ; position: relative; top:5px ; right:0px ; display: inline " src="../media/{{ request.user.avatar }}"  />
+       &nbsp;&nbsp;&nbsp;   <p style=" float:left; display: inline; color:white;">  خوش آمدی {{ request.user.name }} </p>
 
-             </div>
+{% else %}
+                         <img  height=5% width=5% style=" float:left;z-index: 1; border-radius: 50% ; position: relative; top:5px ; right:0px ; display: inline " src="{% static 'blog/image/anynom.jpg' %}"  />
+       &nbsp;&nbsp;&nbsp;   <p style=" float:left; display: inline; color:white;">  خوش آمدی {{ request.user.name }} </p>
+
+                       {% endif %}
+        {% endif %}
+</div>
+            <a  href="#home" style="color: white" >صفحه اصلی</a>
+
+          <a  href="{% url 'logout' %}" class="dropbtn" style="color:white;" >خروج</a>
+
+        </div>
+
                 <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
         </div>
 
@@ -43,16 +51,7 @@
 
     <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%; position: relative ">
 
-<div>
-            {% if request.user.is_authenticated %}
 
-
-        <img  height=10% width=10% style=" border-radius: 50% ; position: absolute; top:5px ; right:0px ; display: inline " src="{{ request.user.avatar }}"  />
-          <p style=" display: inline"> خوش آمدی! {{ request.user.name }} </p>
-
-
-        {% endif %}
-</div>
 
  {% if request.user.is_authenticated %}
         <table id="time" style="top: 5%" class="rtl uk-table uk-table uk-table-striped" >
@@ -77,7 +76,7 @@
                         {% if work.finish_time is None %}
 
                                 <th class="uk-width-auto">
-                        <form method="post" action="finish_task/{{work.pk}}" >
+                        <form method="post" action="{% url 'finish_task' pk2=work.workbox.pk pk=work.pk %}" >
                             {% csrf_token %}
                             <input id="submit" type="submit" value="اتمام" />
                         </form>
@@ -97,6 +96,7 @@
 
 
            </table>
+
 <form method="post" action="addjob" id="two">
       {% csrf_token %}
 

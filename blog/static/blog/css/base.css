@@ -2,7 +2,9 @@ html,
 body {
   max-width: 100%;
   overflow-x: hidden;
-  direction: rtl; }
+  direction: rtl;
+
+   }
 
 .namemain {
   clear: both;
@@ -17,23 +19,24 @@ body {
   float: right;
   display: block;
   text-align: center;
-  padding: 14px 16px;
+  padding: 19px 16px;
   text-decoration: none;
-  font-size: 17px; }
+  font-size: 17px;
+  color:white;
+  }
 
 a:link {
-  color: white;
-  background-color: black}
+  color: white; }
 
 /* visited link */
 .topnav a:visited {
   color: black;
-  background-color: #ddd; }
+  background-color: #111; }
 
 /* mouse over link */
 .topnav a:hover {
   color: black;
-  background-color: #ddd; }
+  background-color: #008000; }
 
 /* selected link */
 .topnav a:active {
@@ -51,7 +54,8 @@ a:link {
   border: 2px solid black;
   padding: 25px;
   background-repeat: no-repeat;
-  background-size: 100% 100%; }
+  position: relative;
+  background-size: 100% 200%; }
 
 .topright {
   position: absolute;
@@ -128,44 +132,6 @@ a:link {
   font-family: inherit;
   margin: 0;
   z-index: 2; }
-
-/* Style the dropdown content (hidden by default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: black;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-  color: white; }
-
-/* Style the links inside the dropdown */
-.dropdown-content a {
-  float: none;
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: center; }
-
-/* Add a dark background on topnav links and the dropdown button on hover */
-.dropdown:hover .dropbtn {
-  color: black;
-  background-color: #ddd; }
-
-/* Add a grey background to dropdown links on hover */
-.dropdown-content a:hover {
-  background-color:black;
-  color:  #ddd; }
-
-.dropdown-content a:link {
-  background-color: black ;
-  color: white;
-  }
-
-/* Show the dropdown menu when the user moves the mouse over the dropdown button */
-.dropdown:hover .dropdown-content {
-  display: block; }
 
 .inbox {
   bottom: 0;

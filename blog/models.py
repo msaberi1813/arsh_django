@@ -1,7 +1,6 @@
+from django.contrib.auth.hashers import make_password
+from django.forms import ModelForm
 from khayyam import *
-
-# Create your models here.
-from datetime import time
 import time
 from django.conf import settings
 from django.utils import timezone
@@ -12,7 +11,6 @@ from django.contrib.auth.base_user import AbstractBaseUser
 
 class WorkBox(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now())
     title = JalaliDatetime.now().strftime('%C');
 
@@ -21,8 +19,8 @@ class WorkBox(models.Model):
 class Work(models.Model):
 
     title = models.CharField(max_length=30 , null=False , default="کار");
-    beginnig_time = models.CharField(max_length=30 , default = str(time.strftime("%H:%M")))
-    finish_time = models.CharField(default = None , null=True , max_length=30);
+    beginnig_time = models.TimeField(max_length=30 , default =timezone.now().time())
+    finish_time = models.TimeField(default = None , null=True , max_length=30);
     workbox = models.ForeignKey(WorkBox, on_delete=models.CASCADE)
     isFinished = models.BooleanField(default= False)
     d = models.CharField(default = None , null=True , max_length=30);
@@ -40,9 +38,10 @@ class MyUserManager(BaseUserManager):
             name = name,
             phone = phone,
             avatar = avatar,
-            password = password
         )
 
+        # varhash = make_password(password, None, 'md5')
+        # user.set_password(varhash)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -58,10 +57,10 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-    email = models.EmailField(max_length=254, unique=True, db_index=True)
-    name = models.CharField(max_length=50 , default="ناشناس")
-    phone = models.CharField(max_length=50 , default="0")
-    avatar = models.ImageField(default=None)
+    email = models.EmailField(max_length=254, unique=True, db_index=True , null=False , blank=False)
+    name = models.CharField(max_length=50 , default="ناشناس" , null=True, blank=True)
+    phone = models.CharField(max_length=50 , default="0" , null=True, blank=True)
+    avatar = models.ImageField(null=True, blank=True, default=None)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -93,5 +92,4 @@ class MyUser(AbstractBaseUser):
     def is_staff(self):
         # Handle whether the user is a member of staff?"
         return self.is_admin
-
 

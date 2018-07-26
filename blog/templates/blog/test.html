@@ -6,58 +6,89 @@
 
 {% block content %}
 
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+.error{
+color:red;
+}
+.error input, .error select {
+border: 2px red solid;
+opacity: 80%;
+}
+@media screen and (max-width: 460px) {
+     input[type=submit] , input[type=text] , input[type=password], input[type=email]{
+        margin-top: 0;
+        width: 90%;
+        font-size: 18px;
+        overflow-x: visible;
+
+
+    }
+    div, #dd{
+        width:100%;
+                overflow-x: visible;
+
+    }
+    button{
+    width:50%;
+    }
+}
+</style>
     <nav class="flex clearfix " id="myTopnav">
         <div class="topnav" >
           <a  href="login" style="color:white" >بازگشت به صفحه ورود</a>
-
-
-             </div>
-                <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
-        </div>
-
     </nav>
 
 
 <div  style="width:100%" >
 
 
-    <div  class="uk-grid uk-width-auto@m uk-text-right uk-overflow-auto" style=" width:70%; padding: 5%; position: relative ">
+    <div  id="dd" class="uk-grid  uk-text-right " style=" width:70%; padding: 5%; position: relative ">
 <h2 style="text-direction: rtl; float: right;">ثبت نام</h2><br>
 
 <form method="post" action="upload_file" id="three" enctype="multipart/form-data">
-      {% csrf_token %}
-
+    {% csrf_token %}
     {% if messages %}
-<ul class="messages" style="color: green" >
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+      {{ form.as_p }}
 
-<label>نام و نام خانوادگی</label><br>
-    <input type="text" class="uk-input uk-float-right inbox" name="name" id="name"  ><br><br>
-    <label>ایمیل</label><br>
-
-    <input type="text" class="uk-input uk-float-right inbox" name="email" id="email"  ><br><br>
-        <label>شماره</label><br>
-
-    <input type="text" class="uk-input uk-float-right inbox" name="phone" id="phone" ><br><br>
-        <label>رمز عبور</label> <br>
-
-    <input type="password" class="uk-input uk-float-right inbox" name="password" id="password"  ><br><br>
-<label>عکس خود را بارگذاری کنید</label><br>
-
-    <input type="file" name="myfile" id="myfile"><br><br>
-
-     <button type="submit" onclick="myFunction()">ثبت نام</button>
-     {% if uploaded_file_url %}
-    <p> <a href="{{ uploaded_file_url }}" style="color: black; float: right; text-align:rtl;"> فایل آپلود شده</a></p>
-      {% endif %}
-
-
+        {% if not messages %}
+         <button type="submit" >ثبت نام</button>
+        {% endif %}
 
 </form>
+    </div>
+</div>
 
 
 {% endblock %}
