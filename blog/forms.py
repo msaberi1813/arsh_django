@@ -10,7 +10,7 @@ class NameForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields['email'].label = "ایمیل"
-        self.fields['name'].label = "نام"
+        self.fields['name'].label = "نام و نام خانوادگی"
         self.fields['phone'].label = "شماره همراه"
         self.fields['password'].label = "رمز عبور"
         self.fields['avatar'].label = "تصویر پروفایل"
@@ -31,7 +31,8 @@ class NameForm(forms.ModelForm):
             'avatar':forms.FileInput(attrs={'name':'avatar'}),
         }
 
-
+class Nform():
+    pass
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file = forms.FileField()

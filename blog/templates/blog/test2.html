@@ -10,7 +10,7 @@
             {% if request.user.is_authenticated %}
 
 {% if request.user.avatar %}
-        <img  height=15% width=15% style=" float:left;z-index: 1; border-radius: 50% ; position: relative; top:5px ; right:0px ; display: inline " src="../media/{{ request.user.avatar }}"  />
+        <img  height=55px width=55px style=" float:left;z-index: 1; border-radius: 50% ; position: relative; top:5px ; right:0px ; display: inline " src="../media/{{ request.user.avatar }}"  />
        &nbsp;&nbsp;&nbsp;   <p style=" float:left; display: inline; color:white;">  خوش آمدی {{ request.user.name }} </p>
 
 {% else %}
@@ -20,14 +20,9 @@
                        {% endif %}
         {% endif %}
 </div>
-            <a  href="#home" style="color: white" >صفحه اصلی</a>
+            <a  href="{% url 'home' %}" style="color: white" >صفحه اصلی</a>
 
           <a  href="{% url 'logout' %}" class="dropbtn" style="color:white;" >خروج</a>
-
-        </div>
-
-                <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
-        </div>
 
     </nav>
 
@@ -37,10 +32,10 @@
          {% csrf_token %}
          <aside>
 
-            <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
-                <span class=" sp" id="title_message" style="float: right">
-                    <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
-                    بسته های کاری</span>
+            <div id="side" style="size:50%" uk-height-viewport ="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
+                <span class=" sp"  style="float: right">
+                    <a href="#" class="uk-icon-button " uk-icon=plus style="border-redius:50%"  onclick="document.forms['one'].submit();"></a>
+                    &nbsp&nbsp <p id="title_message" > بسته های کاری </p>   </span>
                 {% for box in workboxes %}
                       <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.title }} </a>
                 {% endfor %}
@@ -54,6 +49,8 @@
 
 
  {% if request.user.is_authenticated %}
+        <!--<p class="uk-text-center" style="border:solid; padding:10px;float:right;direction:rtl; font-size:30px; color:green;"><strong>{{works.first.workbox.title}}</strong></p><br>-->
+
         <table id="time" style="top: 5%" class="rtl uk-table uk-table uk-table-striped" >
 
                <thead>
@@ -76,9 +73,9 @@
                         {% if work.finish_time is None %}
 
                                 <th class="uk-width-auto">
-                        <form method="post" action="{% url 'finish_task' pk2=work.workbox.pk pk=work.pk %}" >
+                        <form method="post" action="{% url 'finish_task' pk2=work.workbox.pk pk3=work.pk %}" >
                             {% csrf_token %}
-                            <input id="submit" type="submit" value="اتمام" />
+                            <input id="submit" type="submit" class="uk-button" value="اتمام" />
                         </form>
                     </th>
                             </th>
@@ -95,12 +92,12 @@
                </tbody>
 
 
-           </table>
+           </table><br><br>
 
-<form method="post" action="addjob" id="two">
+<form method="post" class="uk-width-3-4" style="float: right;" action="addjob" id="two">
       {% csrf_token %}
 
-    <input type="text" class="uk-float-right inbox" name="title" id="title" placeholder="کار خود را وارد کنید..." ><br><br>
+    <input type="text" class=" uk-input uk-float-right " style="padding:10px; width:150%" name="title" id="title" placeholder="کار خود را وارد کنید..." ><br><br>
     <input type="hidden" id="pk" name="pk" value={{pkey}}>
 
 

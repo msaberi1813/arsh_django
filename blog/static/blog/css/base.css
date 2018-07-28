@@ -1,9 +1,21 @@
+@font-face {
+    font-family: 'BBadr';
+    src: url('BBadr.eot');
+    src: url('BBadr.eot?#iefix') format('embedded-opentype'),
+         url('BBadr.woff') format('woff'),
+         url('BBadr.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
   direction: rtl;
-
+ font-family:  BMitra,'BMitra',tahoma;
+ font_size:20px;
    }
 
 .namemain {
@@ -87,6 +99,7 @@ a:link {
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: right;
+  font-size:25px;
   align: right;
   float: right;
   font-size: 18px;
@@ -141,8 +154,8 @@ a:link {
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 400px) {
-  .topnav a:not(:first-child), .dropdown .dropbtn {
-    display: none; }
+  .topnav a:not(:first-child){
+     }
 
   .topnav a.icon {
     float: right;
@@ -162,33 +175,35 @@ a:link {
     display: block;
     text-align: left; }
 
-  .topnav.responsive .dropdown {
-    float: none; }
-
-  .topnav.responsive .dropdown-content {
-    position: relative; }
-
-  .topnav.responsive .dropdown .dropbtn {
-    display: block;
-    width: 100%;
-    text-align: left; } }
+ }
 /*being responsive for sidebar*/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 450px) {
   #title_message {
-    visibility: hidden;
+    size: 50%;
     clear: both;
     float: right;
     margin: 10px auto 5px 20px;
     width: 28%;
     display: none;
-    font-size: 18px;
-    padding: 0; } }
+
+    padding: 0; }
+    div{font-size: 10px;}
+
+
+    }
 /*responsive*/
 @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 18px; }
 
   .sidenav a {
-    font-size: 17px; } }
+    font-size: 17px; }
+        #side{
+    font_size: 15px;
+      overflow: auto;
+
+
+    }
+    }
 
 /*# sourceMappingURL=base.css.map */

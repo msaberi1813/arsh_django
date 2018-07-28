@@ -1,7 +1,4 @@
-from django.contrib.auth.hashers import make_password
-from django.forms import ModelForm
 from khayyam import *
-import time
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.base_user import BaseUserManager
@@ -10,17 +7,16 @@ from django.contrib.auth.base_user import AbstractBaseUser
 
 
 class WorkBox(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE , blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now())
-    title = JalaliDatetime.now().strftime('%C');
-
+    title = models.CharField(max_length=30 , default = str(JalaliDatetime.now().strftime('%H:%M:%S')))
 
 
 class Work(models.Model):
 
     title = models.CharField(max_length=30 , null=False , default="کار");
-    beginnig_time = models.TimeField(max_length=30 , default =timezone.now().time())
-    finish_time = models.TimeField(default = None , null=True , max_length=30);
+    beginnig_time = models.CharField(max_length=30 , default = str(JalaliDatetime.now().strftime('%H:%M:%S')))
+    finish_time = models.CharField(default = None , null=True , max_length=30);
     workbox = models.ForeignKey(WorkBox, on_delete=models.CASCADE)
     isFinished = models.BooleanField(default= False)
     d = models.CharField(default = None , null=True , max_length=30);
@@ -39,17 +35,14 @@ class MyUserManager(BaseUserManager):
             phone = phone,
             avatar = avatar,
         )
-
-        # varhash = make_password(password, None, 'md5')
-        # user.set_password(varhash)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
+
     def create_superuser(self, email, password):
         user = self.create_user(email,
                                 password=password,
-
                                 )
         user.is_admin = True
         user.save(using=self._db)

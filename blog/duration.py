@@ -1,16 +1,20 @@
 def duration2(ss , ff):
     arr1 = ss.split(':')
-    print(arr1[0])
+    print(arr1[2])
     arr2 = ff.split(':')
-    one = float(arr1[0])*3600+float(arr1[1])*60+float(arr1[2])
-    two = float(arr2[0])*3600+float(arr2[1])*60+float(arr2[2])
+    for i in range(len(arr1)):
+        arr1[i] = str(arr1[i])
+    for i in range(len(arr2)):
+        arr1[i] = str(arr1[i])
+    one = int(arr1[0])*3600+int(arr1[1])*60+int(arr1[2])
+    if len(arr2) == 3:
+        two = int(arr2[0])*3600+int(arr2[1])*60+int(arr2[2])
+    else:
+        two = int(arr2[0]) * 3600 + int(arr2[1]) * 60
     diff = two - one
-    diff_h =round( diff // 3600 ,0)
-    diff_m = round((diff % 3600)//60,0)
-    diff_s = round((diff % 3600)%60,0)
-    diff_h=int(diff_h)
-    diff_m=int(diff_m)
-    diff_s=int(diff_s)
+    diff_h =( diff // 3600 )
+    diff_m = ((diff % 3600)//60)
+    diff_s = ((diff % 3600)%60)
     s=""
     if diff_h!= 0:
         s+=str(diff_h) +"ساعت"
@@ -18,9 +22,11 @@ def duration2(ss , ff):
         if diff_h!= 0:
             s += " و "
         s+= str(diff_m) +"دقیقه"
-
-    if diff_s!=0:
-        if s!="":
-            s += " و "
-        s+=str(diff_s) +"ثانیه"
+    if len(arr2) == 3:
+        if diff_s!=0:
+            if s!="":
+                s += " و "
+            s+=str(diff_s) +"ثانیه"
+    if diff_s<=0 and diff_m<=0 and diff_h<=0:
+        s+=" 0 دقیقه"
     return s

@@ -7,13 +7,8 @@
     <nav class="flex clearfix " id="myTopnav" style="z-index: 2;">
         <div class="topnav" >
 
-          <a  href="#home" style="color: white" >صفحه اصلی</a>
+          <a  href="{% url 'home' %}" style="color: white" >صفحه اصلی</a>
           <a  href="{% url 'logout' %}" style="color:white;" >خروج</a>
-
-        </div>
-
-                <!--<div id="txt" style="float: left, direction:ltr left:0 position:absolute"></div>-->
-        </div>
 
     </nav>
 
@@ -27,7 +22,7 @@
             <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
                 <span class=" sp" id="title_message" style="float: right">
                     <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
-                    بسته های کاری</span>
+                     &nbsp&nbsp بسته های کاری</span>
                 {% for box in workboxes %}
                       <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.title }} </a>
                 {% endfor %}
@@ -42,7 +37,7 @@
             {% if request.user.is_authenticated %}
 
 {% if request.user.avatar %}
-        <img  height=15% width=15% style=" float:right;z-index: 1; border-radius: 50% ; position: relative; top:5px ; right:0px ; display: inline " src="../media/{{ request.user.avatar }}"  />
+        <img  height=15% width=15% style=" float:right;z-index: 1; border-radius: 50% ; position: relative; top:5px ; right:0px ; display: inline " src="../media/{{ request.user.avatar }}"  /><br><br>
        &nbsp;&nbsp;&nbsp;  <p style=" float:right; display: inline; color:black;">  خوش آمدی {{ request.user.name }} </p>
 
 {% else %}
