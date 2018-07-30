@@ -36,23 +36,22 @@ def add_new_task(request  ):
         try:
             q = WorkBox.objects.get(pk=form.data['pk'])
         except:
-            print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
             print(form.data['pk'])
             q = WorkBox.objects.create(pk=1)
         recentJobs = Work.objects.filter(workbox=q)
         for element in recentJobs:
-            if element.finish_time is None:
-               element.finish_time =  str(JalaliDatetime.now().strftime('%H:%M:%S'))
+            if element.finish_time == "":
+               element.finish_time =  JalaliDatetime.now().strftime('%H:%M:%S')
                element.save()
         before = Work.objects.filter( workbox = q).last()
         if before is not None:
             if (before.isFinished == False):
                 before.isFinished=True
-                before.finish_time = str(JalaliDatetime.now().strftime('%H:%M:%S'))
+                before.finish_time = JalaliDatetime.now().strftime('%H:%M:%S')
                 before.d = duration2(str(before.beginnig_time),str( JalaliDatetime.now().strftime('%H:%M:%S')))
                 before.save()
                 print(before.beginnig_time)
-        newjob = Work.objects.create(title=form.data['title'], workbox= WorkBox.objects.get(pk=int(form.data['pk'])), beginnig_time = str(JalaliDatetime.now().strftime('%H:%M:%S')))
+        newjob = Work.objects.create(title=form.data['title'], workbox= WorkBox.objects.get(pk=int(form.data['pk'])), beginnig_time = (JalaliDatetime.now().strftime('%H:%M:%S')))
         workboxes = WorkBox.objects.filter(author=request.user).order_by('created_date')
         works = Work.objects.filter(workbox=q)
     else:
@@ -62,7 +61,7 @@ def add_new_task(request  ):
 def finish_task(request , pk2 ,pk3):
     if request.method == 'POST':
         w = Work.objects.filter(pk = pk3).first()
-        w.finish_time = str( JalaliDatetime.now().strftime('%H:%M:%S'))
+        w.finish_time = JalaliDatetime.now().strftime('%H:%M:%S')
         print(w.finish_time)
         w.d = duration2(str( w.beginnig_time ),str( JalaliDatetime.now().strftime('%H:%M:%S')))
         w.save()

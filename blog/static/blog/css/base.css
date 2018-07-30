@@ -88,6 +88,7 @@ a:link {
 .sidenav {
   width: 20%;
   position: relative;
+  font_size:25px;
   z-index: 1;
   clear: both;
   right: 0;
@@ -99,10 +100,9 @@ a:link {
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: right;
-  font-size:25px;
+  font-size:20px;
   align: right;
   float: right;
-  font-size: 18px;
   color: #818181;
   display: block;
   clear: both; }

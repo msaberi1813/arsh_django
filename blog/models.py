@@ -15,11 +15,49 @@ class WorkBox(models.Model):
 class Work(models.Model):
 
     title = models.CharField(max_length=30 , null=False , default="کار");
-    beginnig_time = models.CharField(max_length=30 , default = str(JalaliDatetime.now().strftime('%H:%M:%S')))
-    finish_time = models.CharField(default = None , null=True , max_length=30);
+    beginnig_time = models.TimeField(max_length=30 , default = JalaliDatetime.now().strftime('%G'))
+    finish_time = models.TimeField(default = None , null=True , max_length=30);
     workbox = models.ForeignKey(WorkBox, on_delete=models.CASCADE)
     isFinished = models.BooleanField(default= False)
-    d = models.CharField(default = None , null=True , max_length=30);
+
+    @property
+    def dd(self ):
+        if (self.finish_time is None):
+            return
+        ss=str(self.beginnig_time)
+        ff=str(self.finish_time)
+        arr1 = ss.split(':')
+        print(arr1[2])
+        arr2 = ff.split(':')
+        for i in range(len(arr1)):
+            arr1[i] = str(arr1[i])
+        for i in range(len(arr2)):
+            arr1[i] = str(arr1[i])
+        one = int(arr1[0]) * 3600 + int(arr1[1]) * 60 + int(arr1[2])
+        if len(arr2) == 3:
+            two = int(arr2[0]) * 3600 + int(arr2[1]) * 60 + int(arr2[2])
+        else:
+            two = int(arr2[0]) * 3600 + int(arr2[1]) * 60
+        diff = two - one
+        diff_h = (diff // 3600)
+        diff_m = ((diff % 3600) // 60)
+        diff_s = ((diff % 3600) % 60)
+        s = ""
+        if diff_h != 0:
+            s += str(diff_h) + "ساعت"
+        if diff_m != 0:
+            if diff_h != 0:
+                s += " و "
+            s += str(diff_m) + "دقیقه"
+        if len(arr2) == 3:
+            if diff_s != 0:
+                if s != "":
+                    s += " و "
+                s += str(diff_s) + "ثانیه"
+        if diff_s <= 0 and diff_m <= 0 and diff_h <= 0:
+            s += " 0 دقیقه"
+        return s
+
     def __str__(self):
         return self.title;
 
@@ -63,26 +101,18 @@ class MyUser(AbstractBaseUser):
     REQUIRED_FIELDS = []
 
     def get_full_name(self):
-        # For this case we return email. Could also be User.first_name User.last_name if you have these fields
         return self.name
-
-    def get_short_name(self):
-        # For this case we return email. Could also be User.first_name if you have this field
-        return self.email
 
     def __unicode__(self):
         return self.email
 
     def has_perm(self, perm, obj=None):
-        # Handle whether the user has a specific permission?"
         return True
 
     def has_module_perms(self, app_label):
-        # Handle whether the user has permissions to view the app `app_label`?"
         return True
 
     @property
     def is_staff(self):
-        # Handle whether the user is a member of staff?"
         return self.is_admin
 

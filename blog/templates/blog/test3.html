@@ -20,9 +20,9 @@
          <aside>
 
             <div uk-height-viewport="expand: false" class="flex sidenav uk-align-right clearfix uk-overflow-auto" >
-                <span class=" sp" id="title_message" style="float: right">
-                    <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
-                     &nbsp&nbsp بسته های کاری</span>
+                <span class=" sp" style="float: right">
+                   <a href="#" class="uk-icon-button " uk-icon=plus  onclick="document.forms['one'].submit();"></a>
+                     &nbsp&nbsp </span><p id="title_message" style="color:white ; font_size:200px;">بسته های کاری</p>
                 {% for box in workboxes %}
                       <a href="{% url 'showJobs' pk=box.pk %}" class="uk-align-right" id="addingbox" > {{box.title }} </a>
                 {% endfor %}
